@@ -3,16 +3,13 @@ import { VideoPlugin, VideoQualityItem, Mp4Video, supportsVideoType } from 'pael
 export class Mp4MultiQualityVideo extends Mp4Video {
     async getQualities() {
         if (!this._qualities) {
-            this._qualities = [];
-            this._sources.forEach((src,i) => {
-                this._qualities.push(new VideoQualityItem({
-                    index: i,
-                    label: `${src.res.w}x${src.res.h}`,
-                    shortLabel: `${src.res.h}p`,
-                    width: src.res.w,
-                    height: src.res.h
-                }));
-            });
+            this._qualities = this._sources.map((src, i) => new VideoQualityItem({
+                index: i,
+                label: `${src.res.w}x${src.res.h}`,
+                shortLabel: `${src.res.h}p`,
+                width: src.res.w,
+                height: src.res.h
+            }));
         }
 
         return this._qualities;
