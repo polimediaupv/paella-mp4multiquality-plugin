@@ -3,16 +3,13 @@ import { VideoPlugin, VideoQualityItem, Mp4Video, supportsVideoType } from 'pael
 export class Mp4MultiQualityVideo extends Mp4Video {
     async getQualities() {
         if (!this._qualities) {
-            this._qualities = [];
-            this._sources.forEach((src,i) => {
-                this._qualities.push(new VideoQualityItem({
-                    index: i,
-                    label: `${src.res.w}x${src.res.h}`,
-                    shortLabel: `${src.res.h}p`,
-                    width: src.res.w,
-                    height: src.res.h
-                }));
-            });
+            this._qualities = this._sources.map((src, i) => new VideoQualityItem({
+                index: i,
+                label: `${src.res.w}x${src.res.h}`,
+                shortLabel: `${src.res.h}p`,
+                width: src.res.w,
+                height: src.res.h
+            }));
         }
 
         return this._qualities;
@@ -26,11 +23,13 @@ export class Mp4MultiQualityVideo extends Mp4Video {
         this._currentQuality = q;
 
         const currentTime = this.video.currentTime;
+        const playbackRate = this.video.playbackRate;
 
         this.clearStreamData();
         await this.loadStreamData(this._streamData);
 
         this.video.currentTime = currentTime;
+        this.video.playbackRate = playbackRate;
     }
 
     get currentQuality() {
@@ -70,6 +69,6 @@ export default class Mp4MultiQualityVideoFormatPlugin extends VideoPlugin {
     }
 
     async getVideoInstance(playerContainer, isMainAudio) {
-        return new Mp4MultiQualityVideo(this.player, playerContainer, isMainAudio);
+        return new Mp4MultiQualityVideo(this.player, playerContainer, isMainAudio, this.config);
     }
 }
