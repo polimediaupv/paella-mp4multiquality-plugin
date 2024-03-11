@@ -23,11 +23,13 @@ export class Mp4MultiQualityVideo extends Mp4Video {
         this._currentQuality = q;
 
         const currentTime = this.video.currentTime;
+        const playbackRate = this.video.playbackRate;
 
         this.clearStreamData();
         await this.loadStreamData(this._streamData);
 
         this.video.currentTime = currentTime;
+        this.video.playbackRate = playbackRate;
     }
 
     get currentQuality() {
