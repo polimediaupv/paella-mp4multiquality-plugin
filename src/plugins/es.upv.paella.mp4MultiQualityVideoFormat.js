@@ -70,6 +70,6 @@ export default class Mp4MultiQualityVideoFormatPlugin extends VideoPlugin {
     }
 
     async getVideoInstance(playerContainer, isMainAudio) {
-        return new Mp4MultiQualityVideo(this.player, playerContainer, isMainAudio);
+        return new Mp4MultiQualityVideo(this.player, playerContainer, isMainAudio, this.config);
     }
 }
