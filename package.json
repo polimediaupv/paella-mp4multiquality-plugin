@@ -1,6 +1,6 @@
 {
   "name": "paella-mp4multiquality-plugin",
-  "version": "1.47.0",
+  "version": "1.47.1",
   "description": "A MP4 multiquality plugin",
   "main": "src/index.js",
   "module": "dist/paella-mp4multiquality-plugin.js",
